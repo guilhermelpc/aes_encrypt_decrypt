@@ -1,5 +1,3 @@
-#!Users/guilhermecaetano/opt/anaconda3/envs/aes_encrypt_gui/bin/python
-
 # When encypting files with this program, some AES encryption parameter choices are made by default. These exact same
 # parameters are also needed for decryption, so it's advisable to have a backup of this python file to ensure that the
 # correct decryption parameters will be available when needed.
@@ -29,7 +27,7 @@ class App(tk.Tk):
         #Password input:
         self.password_label: ttk.Label = ttk.Label(self, text="Enter password to encrypt/decrypt:")
         self.password_label.grid(column=0, row=0)
-        self.password_entry: ttk.Entry = ttk.Entry(self, textvariable=self.password)
+        self.password_entry: ttk.Entry = ttk.Entry(self, textvariable=self.password, show='*')
         self.password_entry.grid(column=0, row=1)
         self.grid_rowconfigure(2, minsize=20)
 
@@ -113,11 +111,14 @@ class App(tk.Tk):
         try:
             data: str = cipher.decrypt_and_verify(ciphertext, tag) #type: ignore
             # Writing the decrypted data to a new file
-            decrypted_file_path: str = self.file_path.rsplit('.aes', 1)[0] #
+            decrypted_file_path = filedialog.asksaveasfilename(defaultextension=".txt",
+                                                         filetypes=[("Text files", "*.txt")],
+                                                         title="Save decrypted file as...")
             with open(decrypted_file_path, 'wb') as df:
                 df.write(data) # type: ignore
             messagebox.showinfo("Success", "File decrypted successfully!") # type: ignore
             self.file_path = ""
+            self.chosen_file_name['text'] = ""
         except ValueError:
             messagebox.showerror("Error", "Decryption failed. The file may be corrupted or the key incorrect.") # type: ignore
 
