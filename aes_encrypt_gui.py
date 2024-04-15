@@ -27,7 +27,7 @@ class App(tk.Tk):
         #Password input:
         self.password_label: ttk.Label = ttk.Label(self, text="Enter password to encrypt/decrypt:")
         self.password_label.grid(column=0, row=0)
-        self.password_entry: ttk.Entry = ttk.Entry(self, textvariable=self.password)
+        self.password_entry: ttk.Entry = ttk.Entry(self, textvariable=self.password, show='*')
         self.password_entry.grid(column=0, row=1)
         self.grid_rowconfigure(2, minsize=20)
 
