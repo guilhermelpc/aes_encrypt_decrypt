@@ -90,9 +90,11 @@ class App(tk.Tk):
             messagebox.showinfo("Success", "File encrypted successfully!") # type: ignore
             self.file_path = ""
             self.chosen_file_name['text'] = ""
+            self.password.set("")
 
         else:
             messagebox.showinfo("Cancelled", "File encryption cancelled.") # type: ignore
+            self.password.set("")
 
         return
     
@@ -119,8 +121,10 @@ class App(tk.Tk):
             messagebox.showinfo("Success", "File decrypted successfully!") # type: ignore
             self.file_path = ""
             self.chosen_file_name['text'] = ""
+            self.password.set("")
         except ValueError:
             messagebox.showerror("Error", "Decryption failed. The file may be corrupted or the key incorrect.") # type: ignore
+            self.password.set("")
 
         return
 
